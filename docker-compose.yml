@@ -7,8 +7,8 @@ x-common-envs:
   DB_USER: "postgres"
   DB_PASSWORD: "dsadsa"
   DB_PORT: 5432
-  APP_NAME: "garage"
-  DB_NAME: "garage_db"
+  APP_NAME: "notification"
+  DB_NAME: "notification_db"
 
 
 
@@ -74,8 +74,8 @@ services:
     depends_on:
       - db
     environment:
-      - APP_NAME=todo
-      - DB_NAME=todo_test
+      - APP_NAME=notification
+      - DB_NAME=notification_db
       - DB_HOST=db
       - DB_PORT=5432
       - DB_USER=admin

@@ -24,12 +24,17 @@ class BaseEnum(Enum):
     def validate_items(cls, items: Collection):
         return cls.set() & set(items) == len(items)
 
-class LoggingLevel(str, BaseEnum):
-    CRITICAL = "CRITICAL"
-    FATAL = "FATAL"
-    ERROR = "ERROR"
-    WARN = "WARN"
-    WARNING = "WARNING"
-    INFO = "INFO"
-    DEBUG = "DEBUG"
-    NOTSET = "NOTSET"
+
+class Status(str, BaseEnum):
+    PUBLISHED = "PUBLISHED"
+    DELETED = "DELETED"
+    DRAFT = "DRAFT"
+    
+    
+
+class NotificationType(str, BaseEnum):
+    NORMAL = "NORMAL"
+
+class NotificationStatus(str, BaseEnum):
+    SENT = "SENT"
+    STORED_ONLY = "STORED_ONLY"

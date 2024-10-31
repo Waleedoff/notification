@@ -66,6 +66,21 @@ class BaseConfig(BaseSettings):
     ENABLE_CASHING: bool = True
     LOGGING_LEVEL: LoggingLevel = LoggingLevel.INFO
     RELEASE_SHA: str = "unknown"
+    
+    # google configs
+    GOOGLE_TYPE: str = "service_account"
+    GOOGLE_PROJECT_ID: str | None = None
+    GOOGLE_PRIVATE_KEY_ID: str | None = None
+    GOOGLE_PRIVATE_KEY: str | None = None
+    GOOGLE_CLIENT_EMAIL: str | None = None
+    GOOGLE_CLIENT_ID: str | None = None
+    GOOGLE_AUTH_URI: str = "https://accounts.google.com/o/oauth2/auth"
+    GOOGLE_TOKEN_URI: str = "https://oauth2.googleapis.com/token"
+    GOOGLE_AUTH_PROVIDER_X509_CERT_URL: str = (
+        "https://www.googleapis.com/oauth2/v1/certs"
+    )
+    GOOGLE_CLIENT_X509_CERT_URL: str | None = None
+    GOOGLE_UNIVERSE_DOMAIN: str = "googleapis.com"
 
     @property
     def SQLALCHEMY_DATABASE_URL(self) -> str:
