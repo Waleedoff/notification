@@ -1,0 +1,90 @@
+version: "3.9"
+
+
+x-common-envs:
+  &common-envs
+  DB_HOST: "db"
+  DB_USER: "postgres"
+  DB_PASSWORD: "dsadsa"
+  DB_PORT: 5432
+  APP_NAME: "garage"
+  DB_NAME: "garage_db"
+
+
+
+x-common-build-volumes:
+  &common-build-volumes
+  build:
+    context: .
+    dockerfile: "./Dockerfile"
+  volumes:
+    - .:/app
+  environment:
+    <<: *common-envs
+
+services:
+  db:
+    ports:
+      - "5440:5432"
+    image: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: dsadsa 
+
+  
+  pgadmin:
+    restart: unless-stopped
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - ./.pgadmin:/root/.pgadmin
+    links:
+      - db
+    ports:
+      - "5052:80"
+    depends_on:
+      - db
+  
+
+  api:
+    restart: unless-stopped
+    depends_on:
+      - db
+      - pgadmin
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: production
+
+    ports:
+      - "3002:80"
+
+    command: /start-reload.sh
+    <<: *common-build-volumes
+    
+
+  pytest:
+    build: 
+      dockerfile: Dockerfile
+      context: .
+      target: dev
+    depends_on:
+      - db
+    environment:
+      - APP_NAME=todo
+      - DB_NAME=todo_test
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=dsadsa
+      - ENVIRONMENT=testing
+    volumes:
+      - ./:/app/
+    command: pytest
+
+
+volumes:
+  postgres:

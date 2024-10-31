@@ -1,0 +1,32 @@
+-r ./requirements.txt
+
+watchdog[watchmedo]
+python-multipart
+passlib[bcrypt]
+python-jose[cryptography]
+black
+isort
+
+boto3-stubs[s3]
+sqlalchemy[mypy]
+types-requests
+types-PyYAML
+types-cachetools
+types-redis
+types-pytz
+types-aiofiles
+types-ujson
+types-certifi
+types-python-dateutil
+types-setuptools
+types-toml
+
+pip-tools
+
+# [ TEST ] 
+pytest
+pytest-cov
+asphalt
+mypy
+time-machine
+httpx
