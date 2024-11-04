@@ -15,8 +15,6 @@ x-common-envs: &common-envs
   
 
 
-  
-
 x-common-build-volumes:
   &common-build-volumes
   build:
@@ -72,7 +70,6 @@ services:
     depends_on:
       - db
       - pgadmin
-      - keycloak
       - celery
       - redis-commander
       - flower
@@ -89,13 +86,6 @@ services:
     command: watchmedo auto-restart -p="*.py" -R celery -- -A app.celery_worker.tasks worker --loglevel=info
     <<: *common-build-volumes
 
-  # celery-beat:
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - redis
-  #     - db
-  #   command: "celery -A app.celery_worker.beat beat --loglevel=info"
-  #   <<: *common-build-volumes
   
   flower:
     image: mher/flower
@@ -125,22 +115,6 @@ services:
       CELERY_BROKER_URL: redis://redis:6379/2
 
 
-  keycloak:
-    image: docker.io/bitnami/keycloak:23.0.7
-    environment:
-      KEYCLOAK_DATABASE_HOST: db
-      KEYCLOAK_DATABASE_NAME: keycloak
-      KEYCLOAK_DATABASE_USER: postgres
-      KEYCLOAK_DATABASE_PASSWORD: dsadsa
-      KEYCLOAK_ADMIN_PASSWORD: Pa55w0rd
-      KEYCLOAK_ADMIN: admin
-    ports:
-      - 8080:8080
-    depends_on:
-      - db
-      - pgadmin
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
 volumes:
   minio:

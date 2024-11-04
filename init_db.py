@@ -6,7 +6,6 @@ from alembic import command
 from alembic.config import Config
 from sqlalchemy.exc import OperationalError
 
-
 def create_db():
     # if database {DB_NAME} does not exist create it
     # establishing the connection

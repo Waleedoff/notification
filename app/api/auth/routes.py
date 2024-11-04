@@ -1,5 +1,7 @@
 from datetime import timedelta
 
+from app.api.notification.enums import NotificationType
+from app.celery_worker.tasks import send_notification_task
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
@@ -25,7 +27,6 @@ async def user_register(body: CreateUserRequest, session: Session = db_session):
 
 @router.post("/login",)
 def user_login(form_data: OAuth2PasswordRequestForm = Depends(), session:Session = db_session)->Token:
-
     return user_login_(form_data = form_data, session=session)
 
 
@@ -36,4 +37,18 @@ async def read_users_me(current_user: UserResponse = Depends(get_current_active_
 
 @router.get("/user/me/items")
 async def read_own_items(current_user: UserResponse = Depends(get_current_active_user)):
+    
+    send_notification_task.apply_async(
+            kwargs=dict(
+                notification_type=NotificationType.NORMAL.value,
+                user_emails=current_user.email,
+                title="Hey there",
+                body="meeting.",
+                data=dict(
+                    title="welcome ",
+                    body="test notification",
+                    entity_id="test",
+                ),
+            ),
+        )
     return [{"item_id": 1, "owner": current_user}]

@@ -110,7 +110,7 @@ def fetch_user_devices(session: Session, user_ids: list[str], user_emails: list[
 
     for user in users:
         tokens = [
-            device.device_token for device in user.devices if user.allow_notification
+            device.device_token for device in user.devices if user.allow_notification # suring user is allow to show thier notification
         ]
         device_tokens.extend(tokens)
 

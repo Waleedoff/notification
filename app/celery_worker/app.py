@@ -12,7 +12,7 @@ from app.common.logging import logging
 from app.common.redis_client import RedisClient, get_redis_client
 from app.config import BaseConfig
 from app.db.db import BaseDb
-from app.dependencies import get_feature_flags_dependency
+# from app.dependencies import get_feature_flags_dependency
 
 
 def stop_http_errors(func):
@@ -52,7 +52,7 @@ def init_app(config: BaseConfig):
         backend=backend if config.CELERY_ENABLE_RESULT_BACKEND else None,
         borker=config.CELERY_BROKER_URL,
     )
-    get_feature_flags = get_feature_flags_dependency(config, base_db)
+    # get_feature_flags = get_feature_flags_dependency(config, base_db)
 
     class FullCustomTask(CustomTask):
         _session: Session | None = None

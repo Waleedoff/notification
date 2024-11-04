@@ -46,8 +46,6 @@ class DeviceType(str, BaseEnum):
 
 class NotificationType(str, BaseEnum):
     NORMAL = "NORMAL"
-    BOOKING = "BOOKING"
-    DISRUPT_REMINDER = "DISRUPT_REMINDER"
 
 
 class NotificationStatus(str, BaseEnum):

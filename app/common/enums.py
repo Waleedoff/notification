@@ -35,3 +35,35 @@ class LoggingLevel(str, BaseEnum):
     DEBUG = "DEBUG"
     NOTSET = "NOTSET"
 
+
+
+class GoogleCalendarEventTypes(str, BaseEnum):
+    DEFAULT = "default"
+    FOCUS_TIME = "focusTime"
+    OUT_OF_OFFICE = "outOfOffice"
+    WORKING_LOCATION = "workingLocation"
+
+class GoogleCalendarOrderByTypes(str, BaseEnum):
+    START_TIME = "startTime"
+    UPDATED = "updated"
+
+
+class GoogleSheetValueInputOption(str, BaseEnum):
+    RAW = "RAW"
+    USER_ENTERED = "USER_ENTERED"
+
+
+class GoogleSheetInsertDataOption(str, BaseEnum):
+    OVERWRITE = "OVERWRITE"
+    INSERT_ROWS = "INSERT_ROWS"
+
+
+class GoogleSheetValueRenderOption(str, BaseEnum):
+    FORMATTED_VALUE = "FORMATTED_VALUE"
+    UNFORMATTED_VALUE = "UNFORMATTED_VALUE"
+    FORMULA = "FORMULA"
+
+
+class GoogleSheetDateTimeRenderOption(str, BaseEnum):
+    SERIAL_NUMBER = "SERIAL_NUMBER"
+    FORMATTED_STRING = "FORMATTED_STRING"

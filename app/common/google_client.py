@@ -14,7 +14,6 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import Resource
 from googleapiclient.errors import HttpError
 
-
 from app.common.logging import logger
 from app.config import config
 
@@ -69,108 +68,117 @@ class GoogleClient(object):
         else:
             logger.exception(response)
             return response
-        
-    def _get_credentials_file_path(self):
-        credentials_file = Path(__file__).resolve().parent / "google_credentials.json"
-        if not credentials_file.exists():
-            self._create_credentials_file(credentials_file)
-        return str(credentials_file)
+    
+    def verify_token(self, token: str) -> bool:
+        """
+        Verifies the token received from the client.
 
-    def _create_credentials_file(self, credentials_file):
+        Args:
+            token (str): The recipient device's FCM token.
+
+        Returns:
+            bool: True or False.
+        """
+        self._initialize_firebase_app()
         try:
-            configurations = {
-                "type": config.GOOGLE_TYPE,
-                "project_id": config.GOOGLE_PROJECT_ID,
-                "private_key_id": config.GOOGLE_PRIVATE_KEY_ID,
-                "private_key": config.GOOGLE_PRIVATE_KEY,
-                "client_email": config.GOOGLE_CLIENT_EMAIL,
-                "client_id": config.GOOGLE_CLIENT_ID,
-                "auth_uri": config.GOOGLE_AUTH_URI,
-                "token_uri": config.GOOGLE_TOKEN_URI,
-                "auth_provider_x509_cert_url": config.GOOGLE_AUTH_PROVIDER_X509_CERT_URL,
-                "client_x509_cert_url": config.GOOGLE_CLIENT_X509_CERT_URL,
-                "universe_domain": config.GOOGLE_UNIVERSE_DOMAIN,
-            }
-            with open(credentials_file, "w") as json_file:
-                json.dump(configurations, json_file, indent=4)
-                logger.info("service created successfully.")
-        except Exception as e:
-            logger.exception(f"Failed to create credentials file: {e}")
-            self._remove_credentials_file(credentials_file)
-            return
-        
-    def _initialize_firebase_app(self):
+            messaging.send(messaging.Message(token=token), dry_run=True)
+            return True
+        except Exception:
+            return False    
+    
+    def send_message_to_specific_device(
+        self,
+        title: str,
+        body: str,
+        token: str,
+        data: dict = dict(),
+        image: str | None = None,
+    ):
+        """
+        Sends a push notification via Firebase Cloud Messaging (FCM).
+
+        Args:
+            title (str): The notification title.
+            body (str): The notification body.
+            token (str): The recipient device's FCM token.
+            data (dict): An object containing a list of "key": value
+
+        Returns:
+            dict: The response from FCM.
+        """
+        self._initialize_firebase_app()
+        message = messaging.Message(
+            data=data,
+            notification=messaging.Notification(
+                title=title,
+                body=body,
+                image=image,
+            ),
+            token=token,
+        )
+
         try:
-            if not firebase_admin._apps:
-                credentials_file = self._get_credentials_file_path()
-                cred = credentials.Certificate(credentials_file)
-                firebase_admin.initialize_app(cred)
-                logger.info("Firebase app initialized successfully.")
-                self._remove_credentials_file(credentials_file)
+            response = messaging.send(message)
+            logger.info("Notification sent successfully")
+            return response
         except Exception as e:
-            self._remove_credentials_file(credentials_file)
-            self._handle_google_response_or_abort_on_error(e)
-    
-    
+            return self._handle_google_response_or_abort_on_error(e)
+
+    # Send messages to multiple devices: You can specify up to 500 device registration tokens per invocation.
+    # to more info visit https://firebase.google.com/docs/cloud-messaging/send-message#send-messages-to-multiple-devices
     def send_messages_to_multiple_devices(
-            self,
-            title: str,
-            body: str,
-            tokens: list[str],
-            data: dict[str, str] | None = {},  # (key: string, value: string)
-            image: str | None = None,
-        ):
-            """
-            Sends a push notification via Firebase Cloud Messaging (FCM) to multiple devices.
+        self,
+        title: str,
+        body: str,
+        tokens: list[str],
+        data: dict[str, str] | None = {},  # (key: string, value: string)
+        image: str | None = None,
+    ):
+        """
+        Sends a push notification via Firebase Cloud Messaging (FCM) to multiple devices.
 
-            Args:
-                title (str): The notification title.
-                body (str): The notification body.
-                tokens (list[str]): The recipient devices' FCM tokens.
-                data (dict): An object containing a list of "key": value pairs for the message payload.
-                image (str, optional): URL of the image to be displayed in the notification.
+        Args:
+            title (str): The notification title.
+            body (str): The notification body.
+            tokens (list[str]): The recipient devices' FCM tokens.
+            data (dict): An object containing a list of "key": value pairs for the message payload.
+            image (str, optional): URL of the image to be displayed in the notification.
 
-            Returns:
-                list: A list of objects containing success status, token, and response ID (or error).
-            """
-            self._initialize_firebase_app()
-            message = messaging.MulticastMessage(
-                data=data,
-                notification=messaging.Notification(
-                    title=title,
-                    body=body,
-                    image=image,
-                ),
-                tokens=tokens,
-            )
+        Returns:
+            list: A list of objects containing success status, token, and response ID (or error).
+        """
+        self._initialize_firebase_app()
+        message = messaging.MulticastMessage(
+            data=data,
+            notification=messaging.Notification(
+                title=title,
+                body=body,
+                image=image,
+            ),
+            tokens=tokens,
+        )
 
-            try:
-                response = messaging.send_each_for_multicast(message)
-                response_details = []
+        try:
+            response = messaging.send_each_for_multicast(message)
+            response_details = []
 
-                for idx, resp in enumerate(response.responses):
-                    if resp.success:
-                        response_details.append(
-                            {
-                                "success": True,
-                                "token": tokens[idx],
-                                "message_id": resp.message_id,
-                            }
-                        )
-                    else:
-                        response_details.append(
-                            {
-                                "success": False,
-                                "token": tokens[idx],
-                                "error": str(resp.exception),
-                            }
-                        )
-                return dict(response=response_details)
-            except Exception as e:
-                return self._handle_google_response_or_abort_on_error(e)
-            
-            
-    def _remove_credentials_file(self, credentials_file):
-        if os.path.exists(credentials_file):
-            os.remove(credentials_file)
-            logger.info(f"Removed credentials file: {credentials_file}")
+            for idx, resp in enumerate(response.responses):
+                if resp.success:
+                    response_details.append(
+                        {
+                            "success": True,
+                            "token": tokens[idx],
+                            "message_id": resp.message_id,
+                        }
+                    )
+                else:
+                    response_details.append(
+                        {
+                            "success": False,
+                            "token": tokens[idx],
+                            "error": str(resp.exception),
+                        }
+                    )
+            return dict(response=response_details)
+        except Exception as e:
+            return self._handle_google_response_or_abort_on_error(e)

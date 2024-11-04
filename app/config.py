@@ -31,37 +31,28 @@ class BaseConfig(BaseSettings):
     FEATURE_FLAG_LOCAL_CASH_SIZE_LIMIT: int = 100
 
     FILE_EXPORT_THRESHOLD: int = 1000
+ 
+    '''
+    these our FCM env gonna be below
     
     '''
-    this is our FCM connection
     
-    '''
-    GOOGLE_TYPE: str = "service_account"
-    GOOGLE_PROJECT_ID: str = "the-garage-75c8c"
-    GOOGLE_CLIENT_EMAIL: str = (
-        "garage-calendar@the-garage-75c8c.iam.gserviceaccount.com"
+    GOOGLE_AUTH_URI: str = "https://accounts.google.com/o/oauth2/auth"
+    GOOGLE_TOKEN_URI: str = "https://oauth2.googleapis.com/token"
+    GOOGLE_AUTH_PROVIDER_X509_CERT_URL: str = (
+        "https://www.googleapis.com/oauth2/v1/certs"
     )
-    GOOGLE_CLIENT_ID: str = "116604712848060127486"
-    GOOGLE_CLIENT_X509_CERT_URL: str = (
-        "https://www.googleapis.com/robot/v1/metadata/x509/garage-calendar%40the-garage-75c8c.iam.gserviceaccount.com"
-    )
-    GOOGLE_DELEGATION_EMAIL: str = "o.alwahiby@thegarage.sa"
-    GOOGLE_PRIVATE_KEY: str = (
-        "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDZ3YaE+a81A+8C\nELz2PI/MUXoFmFcLgVSs4Tzi2tIlOkm0Se7z3V4JApUedMqleYaIEn0fAtvJLkJq\n49R+Ef0TIz5yqmGWgdx3FtYoXAKeQqZc5/c0BWBlcPnukvatoxp4twNH1LtyN2bB\nZFsKabOKHlel9enu07n+02L576S8dEBTreqsueUyVCqNv7KrlRYoiOQ8RAznuMko\nq2UpZc0cniQuJR+XQNzkJWY8jB8SlfqJmNluMkyZI6V7tTNzc2P6QYgNAz1nh3DG\nJDLKLg7j5LKiVoJUNt+Wkq//JiVyaTx8NBraaJXyULwTcMwcyEMBebXWHeO6GRYu\nJmnHHwlVAgMBAAECggEAIjMLu8dfa94QixgfjDPDiu+QolzgmnYUhF2Ia5VX/u9g\nby8FQJNpAIG+8MdP9vErCiSE2Z+0P/zFVkwp/hmgICdHKpl5CjbxFGH+/4TksFKG\nv6Ig2bICXh+BoaQWRE7h3T3gA6BERdCmjl3M4Mc+ShnV6RUU7Mr1sSfJALJP/3j3\nO56v5MRMG+82YzCmUna+idynSvdwX4mUc4zIx93KnxbL0WqBWJeO5xPpx0WNkCae\nS8Od9VVoeXixMSe/95ljlnEcVOS+tjsFuSqLugMPUp6YuZV2awprJWGY9ApqQkjT\nyz+OxI5tPVt6YI3KW1fhoQ3ZJWue5uYKZCbG8/HYXQKBgQD9MrXVMYl2UVVF6KbL\nTrohti4Ubh5OlAo0RKO3iKAox9/9609K69BK3yrsK+YSbdjpyYnTBKgWPVFbx2y5\nPKUlMyiCIpviYmeDP1uowNX0LFAn740MA0lc0LqBAzhP0QaGLXMvfKygJEo4w6aZ\nA7p7xWLTOxKZ5yyjnra0he2lawKBgQDcRrhovZmr3T0LuDlXCB+AnMcHdKmQIlib\naltuG4DKuNMlTUlwsORJOcmGYuptSM26CTZGN2wftXM2wSyv4WtRVlSI+v3D6Epj\nwTilITjAEnNv8YPpL3zOSN/QjKVsIyeE4KQFKw6Sh9ewAtok73mJIj1NJQhYEdLs\n/FElzer8PwKBgQDbjCwlJ6YVRSMW0kxGwAYfkzPTnUSESFOszNPVIhAWLHIqX+7K\nfT2Inog+bzY5Rqyu04XBxyjk19iDJ6I74L0mS3zVkqLuovs00CxvYH5lEkOSzWHV\nR8hGRetiUON0OkBY+nIFfCrHVZBSNjxwM85w4k/17yQK9Ww8mDO+xt6w7wKBgQCa\nHPCQd3a4g8VeGbokZg6EUSv+z2SC70THF5Z4Zs2pB77Sbkxfh6Nwh/mzCCmz5Cfr\nbN6IKeaAGNdPC8BUHYaUFa53WAOLuU2ylVEoVyH5X+9b9sGvuAW93caZho2GJuJT\nWUfoRcOgSWJiRtyQ0utZQpdZDfvUgkPsgmvT40nwyQKBgAYwZbrqIoIpoUJPotvN\niMh0YxOy2iQEJCOy9DS3aNcIBymw+WzL2Z0dZ16HBYC87j8dNQ2vv8Ze0FVpj4gy\nNFvjl4S6e00+O7dmlTlwsXBh1Ph/DzDgSDtjdNj2K4LwaCxjHihtZrdkw5MnDryu\ndknPmwfrAwBokD03++4o0CV9\n-----END PRIVATE KEY-----\n"
-    )
-    GOOGLE_PRIVATE_KEY_ID: str = "ab357a5c5a017f6856ea5939f37878edd5cbc5f2"
-    
-    # keycloak configs
-    KEYCLOAK_SERVER_URL: str = "http://keycloak:8080/"
-    KEYCLOAK_CLIENT_ID: str = "notification-api"
-    KEYCLOAK_REALM: str = "main"
-    KEYCLOAK_CLIENT_SECRET: str = "BvCqeQgI1d9yh287aTwzsKVgFqrdWs3x"
+    GOOGLE_UNIVERSE_DOMAIN: str = "googleapis.com"
 
-    # credentials for the keycloak admin user who dose the actual requests to keycloak on behave of platform admins
-    KEYCLOAK_ADMIN_USERNAME: str = "admin"
-    KEYCLOAK_ADMIN_PASSWORD: str = "Password"
-    # the max timeout after witch we will raise an error instad of more timeouts
-    KEYCLOAK_ADMIN_LOGIN_TIMEOUT_LIMIT: int = 60
+    GOOGLE_TYPE: str
+    GOOGLE_PROJECT_ID: str 
+    GOOGLE_CLIENT_EMAIL: str 
+    GOOGLE_CLIENT_ID: str 
+    GOOGLE_CLIENT_X509_CERT_URL: str 
+    GOOGLE_DELEGATION_EMAIL: str
+    GOOGLE_PRIVATE_KEY: str 
+    GOOGLE_PRIVATE_KEY_ID: str 
+    
     
     
     # rides configs
