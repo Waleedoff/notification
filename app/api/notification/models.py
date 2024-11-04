@@ -1,10 +1,9 @@
+from app.api.notification.enums import NotificationType, Status
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, relationship
 
-from app.common.enums import NotificationType
 from app.api.auth.models import User
-from app.common.enums import Status
 from app.db.db import Base, Defaults
 
 

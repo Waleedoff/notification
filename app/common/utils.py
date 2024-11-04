@@ -78,6 +78,9 @@ def get_query_count(query, session) -> int:
     return count.scalar()
 
 
+def chunk_list(lst: list[str], chunk_size: int) -> list[list[str]]:
+    return [lst[i : i + chunk_size] for i in range(0, len(lst), chunk_size)]
+
 # def get_column_name_by_lang(*, obj, lang: LanguageLocale, col_name_prefix: str) -> str:
 #     return getattr(obj, f"{col_name_prefix}_{lang.value.lower()}")
 

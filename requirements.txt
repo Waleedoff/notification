@@ -4,41 +4,35 @@
 #
 #    pip-compile
 #
-alembic==1.13.1
+alembic==1.13.2
     # via -r requirements.in
 amqp==5.2.0
     # via kombu
-annotated-types==0.6.0
+annotated-types==0.7.0
     # via pydantic
-anyio==4.2.0
+anyio==4.4.0
     # via
+    #   httpx
     #   starlette
     #   watchfiles
-asgiref==3.7.2
-    # via scout-apm
 billiard==4.2.0
     # via celery
-boto3==1.34.20
+boto3==1.34.144
     # via -r requirements.in
-botocore==1.34.20
+botocore==1.34.144
     # via
     #   boto3
     #   s3transfer
-cachecontrol==0.13.1
-    # via firebase-admin
-cachetools==5.3.2
-    # via
-    #   -r requirements.in
-    #   google-auth
-celery[redis]==5.3.6
+cachetools==5.4.0
     # via -r requirements.in
-certifi==2023.11.17
+celery[redis]==5.4.0
+    # via -r requirements.in
+certifi==2024.7.4
     # via
+    #   httpcore
+    #   httpx
     #   requests
-    #   scout-apm
     #   sentry-sdk
-cffi==1.16.0
-    # via cryptography
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
@@ -47,216 +41,161 @@ click==8.1.7
     #   click-didyoumean
     #   click-plugins
     #   click-repl
+    #   typer
     #   uvicorn
-click-didyoumean==0.3.0
+click-didyoumean==0.3.1
     # via celery
 click-plugins==1.1.1
     # via celery
 click-repl==0.3.0
     # via celery
-cryptography==41.0.7
-    # via pyjwt
-dnspython==2.4.2
+dnspython==2.6.1
     # via email-validator
-ecdsa==0.18.0
+ecdsa==0.19.0
     # via python-jose
-email-validator==2.1.0.post1
+email-validator==2.2.0
+    # via
+    #   -r requirements.in
+    #   fastapi
+fastapi==0.111.1
     # via -r requirements.in
-fastapi==0.109.0
-    # via -r requirements.in
-firebase-admin==6.3.0
-    # via -r requirements.in
-google-api-core[grpc]==2.15.0
-    # via
-    #   firebase-admin
-    #   google-api-python-client
-    #   google-cloud-core
-    #   google-cloud-firestore
-    #   google-cloud-storage
-google-api-python-client==2.114.0
-    # via firebase-admin
-google-auth==2.26.2
-    # via
-    #   google-api-core
-    #   google-api-python-client
-    #   google-auth-httplib2
-    #   google-cloud-core
-    #   google-cloud-storage
-google-auth-httplib2==0.2.0
-    # via google-api-python-client
-google-cloud-core==2.4.1
-    # via
-    #   google-cloud-firestore
-    #   google-cloud-storage
-google-cloud-firestore==2.14.0
-    # via firebase-admin
-google-cloud-storage==2.14.0
-    # via firebase-admin
-google-crc32c==1.5.0
-    # via
-    #   google-cloud-storage
-    #   google-resumable-media
-google-resumable-media==2.7.0
-    # via google-cloud-storage
-googleapis-common-protos==1.62.0
-    # via
-    #   google-api-core
-    #   grpcio-status
+fastapi-cli==0.0.4
+    # via fastapi
 greenlet==3.0.3
     # via sqlalchemy
-grpcio==1.60.0
-    # via
-    #   google-api-core
-    #   grpcio-status
-grpcio-status==1.60.0
-    # via google-api-core
-gunicorn==21.2.0
+gunicorn==22.0.0
     # via -r requirements.in
 h11==0.14.0
-    # via uvicorn
-httplib2==0.22.0
     # via
-    #   google-api-python-client
-    #   google-auth-httplib2
+    #   httpcore
+    #   uvicorn
+httpcore==1.0.5
+    # via httpx
 httptools==0.6.1
     # via uvicorn
-idna==3.6
+httpx==0.27.0
+    # via fastapi
+idna==3.7
     # via
     #   anyio
     #   email-validator
+    #   httpx
     #   requests
+jinja2==3.1.4
+    # via fastapi
 jmespath==1.0.1
     # via
     #   boto3
     #   botocore
-kombu==5.3.5
+kombu==5.3.7
     # via celery
-mako==1.3.0
+mako==1.3.5
     # via alembic
-markupsafe==2.1.3
-    # via mako
-msgpack==1.0.7
-    # via cachecontrol
-orjson==3.9.10
+markdown-it-py==3.0.0
+    # via rich
+markupsafe==2.1.5
+    # via
+    #   jinja2
+    #   mako
+mdurl==0.1.2
+    # via markdown-it-py
+orjson==3.10.6
     # via -r requirements.in
-packaging==23.2
+packaging==24.1
     # via gunicorn
-pillow==10.2.0
-    # via qrcode
-prompt-toolkit==3.0.43
+prompt-toolkit==3.0.47
     # via click-repl
-proto-plus==1.23.0
-    # via google-cloud-firestore
-protobuf==4.25.2
-    # via
-    #   google-api-core
-    #   google-cloud-firestore
-    #   googleapis-common-protos
-    #   grpcio-status
-    #   proto-plus
-psutil==5.9.7
-    # via scout-apm
-psycopg==3.1.17
+psycopg==3.2.1
     # via -r requirements.in
-pyasn1==0.5.1
+pyasn1==0.6.0
     # via
-    #   pyasn1-modules
     #   python-jose
     #   rsa
-pyasn1-modules==0.3.0
-    # via google-auth
-pycparser==2.21
-    # via cffi
-pydantic==2.5.3
+pydantic==2.8.2
     # via
     #   -r requirements.in
     #   fastapi
     #   pydantic-extra-types
     #   pydantic-settings
-pydantic-core==2.14.6
+pydantic-core==2.20.1
     # via pydantic
-pydantic-extra-types==2.4.1
+pydantic-extra-types==2.9.0
     # via -r requirements.in
-pydantic-settings==2.1.0
+pydantic-settings==2.3.4
     # via -r requirements.in
-pyjwt[crypto]==2.8.0
-    # via firebase-admin
-pyparsing==3.1.1
-    # via httplib2
-pypng==0.20220715.0
-    # via qrcode
-python-dateutil==2.8.2
+pygments==2.18.0
+    # via rich
+python-dateutil==2.9.0.post0
     # via
     #   botocore
     #   celery
-python-dotenv==1.0.0
+python-dotenv==1.0.1
     # via
     #   pydantic-settings
     #   uvicorn
 python-jose==3.3.0
     # via -r requirements.in
+python-multipart==0.0.9
+    # via fastapi
 pyyaml==6.0.1
     # via
     #   -r requirements.in
     #   uvicorn
-qrcode[pil]==7.4.2
-    # via -r requirements.in
-redis==5.0.1
+redis==5.0.7
     # via
     #   -r requirements.in
     #   celery
-requests==2.31.0
-    # via
-    #   -r requirements.in
-    #   cachecontrol
-    #   google-api-core
-    #   google-cloud-storage
+requests==2.32.3
+    # via -r requirements.in
+rich==13.7.1
+    # via typer
 rsa==4.9
-    # via
-    #   google-auth
-    #   python-jose
-s3transfer==0.10.0
+    # via python-jose
+s3transfer==0.10.2
     # via boto3
-scout-apm==3.1.0
+sentry-sdk==2.10.0
     # via -r requirements.in
-sentry-sdk==1.39.2
-    # via -r requirements.in
+shellingham==1.5.4
+    # via typer
 six==1.16.0
     # via
     #   ecdsa
     #   python-dateutil
-sniffio==1.3.0
-    # via anyio
-sqlalchemy==2.0.25
+sniffio==1.3.1
+    # via
+    #   anyio
+    #   httpx
+sqlalchemy==2.0.31
     # via
     #   -r requirements.in
     #   alembic
     #   sqlalchemy-utils
-sqlalchemy-utils==0.41.1
+sqlalchemy-utils==0.41.2
     # via -r requirements.in
-starlette==0.35.1
+starlette==0.37.2
     # via fastapi
-typing-extensions==4.9.0
+typer==0.12.3
+    # via fastapi-cli
+typing-extensions==4.12.2
     # via
     #   alembic
     #   fastapi
     #   psycopg
     #   pydantic
     #   pydantic-core
-    #   qrcode
     #   sqlalchemy
-tzdata==2023.4
+    #   typer
+tzdata==2024.1
     # via celery
-uritemplate==4.1.1
-    # via google-api-python-client
-urllib3==2.0.7
+urllib3==2.2.2
     # via
     #   botocore
     #   requests
-    #   scout-apm
     #   sentry-sdk
-uvicorn[standard]==0.26.0
-    # via -r requirements.in
+uvicorn[standard]==0.30.1
+    # via
+    #   -r requirements.in
+    #   fastapi
 uvloop==0.19.0
     # via uvicorn
 vine==5.1.0
@@ -264,14 +203,49 @@ vine==5.1.0
     #   amqp
     #   celery
     #   kombu
-watchfiles==0.21.0
+watchfiles==0.22.0
     # via uvicorn
 wcwidth==0.2.13
     # via prompt-toolkit
 websockets==12.0
     # via uvicorn
-wrapt==1.16.0
-    # via scout-apm
-python-multipart==0.0.6
+
+
+firebase-admin==6.5.0
+    # via -r requirements.in
+google-api-core[grpc]==2.21.0
+    # via
+    #   firebase-admin
+    #   google-api-python-client
+    #   google-cloud-core
+    #   google-cloud-firestore
+    #   google-cloud-storage
+google-api-python-client==2.149.0
+    # via firebase-admin
+google-auth==2.35.0
+    # via
+    #   google-api-core
+    #   google-api-python-client
+    #   google-auth-httplib2
+    #   google-cloud-core
+    #   google-cloud-firestore
+    #   google-cloud-storage
+google-auth-httplib2==0.2.0
+    # via google-api-python-client
+google-cloud-core==2.4.1
+    # via
+    #   google-cloud-firestore
+    #   google-cloud-storage
+google-cloud-firestore==2.19.0
+    # via firebase-admin
+google-cloud-storage==2.18.2
+    # via firebase-admin
+google-crc32c==1.6.0
+    # via
+    #   google-cloud-storage
+    #   google-resumable-media
+google-resumable-media==2.7.2
+    # via google-cloud-storage
+googleapis-common-protos==1.65.0
+
 passlib==1.7.4
-bcrypt==4.0.1

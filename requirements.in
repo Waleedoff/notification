@@ -10,24 +10,17 @@ orjson
 email-validator
 
 
-boto3
-
 SQLAlchemy
 SQLAlchemy-Utils
-python-multipart
-passlib[bcrypt]
-python-jose[cryptography]
+
 psycopg
 
 alembic
-
+boto3
 PyYAML
 sentry-sdk
 
 celery[redis]
 redis
-scout-apm
 cachetools
 python-jose
-firebase-admin
-qrcode[pil]==7.4.2

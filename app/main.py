@@ -3,7 +3,6 @@ import time
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.auth import routes as auth_router
-from app.api.todos import routes as todo_router
 from app.config import config
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
@@ -42,7 +41,6 @@ app.add_middleware(
 
 
 routes = [
-    todo_router,
     auth_router
     # Add other routers as needed
 ]

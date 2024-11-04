@@ -1,9 +1,7 @@
 -r ./requirements.txt
 
 watchdog[watchmedo]
-python-multipart
-passlib[bcrypt]
-python-jose[cryptography]
+
 black
 isort
 
@@ -12,8 +10,8 @@ sqlalchemy[mypy]
 types-requests
 types-PyYAML
 types-cachetools
-types-redis
 types-pytz
+types-redis
 types-aiofiles
 types-ujson
 types-certifi
@@ -28,5 +26,7 @@ pytest
 pytest-cov
 asphalt
 mypy
-time-machine
 httpx
+time-machine
+
+pip-tools
